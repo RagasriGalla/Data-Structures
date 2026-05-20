@@ -1,0 +1,30 @@
+class Solution:
+    def findSubarray(self, arr):
+        max_sum=float('-inf')
+        curr_sum=0
+        temp_start=0
+        start=0
+        end=0
+        found=False
+        for i in range(0,len(arr)):
+            if(arr[i]>=0):
+                found=True
+                curr_sum+=arr[i]
+                curr_len=i-temp_start+1
+                best_len=end-start+1
+                if curr_sum>max_sum:
+                    max_sum=curr_sum
+                    start=temp_start
+                    end=i
+                elif curr_sum==max_sum:
+                    if curr_len>best_len:
+                        start=temp_start
+                        end=i
+            else:
+                curr_sum=0
+                temp_start=i+1
+        if found==False:
+            return [-1]
+        else:
+            ans=arr[start:end+1]
+            return list(map(int,ans))
